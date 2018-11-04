@@ -2,8 +2,8 @@
 <div class="test">
     <input type="text">
     <hr>
-    <h2>Hello, </h2>
-</div>
+    <h2>Hello, {{ man }}</h2>
+</div> 
 </template>
 
 <script>
@@ -13,8 +13,15 @@
 
 export default {
   name: 'test',
+/*
   props: {
-    msg: String
+    man: String
+  },
+*/
+  data(){
+	return {
+	   man: 'Denys'
+	}
   }
 /*
   components: {

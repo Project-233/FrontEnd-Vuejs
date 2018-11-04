@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<!--suppress ALL -->
+<html lang="en">
+	<head>
+		<meta charset="UTF">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	</head>
+	<title></title>
+	<link href="css/application.css" rel="stylesheet">
+	<body>
+		<div class="main-menu">
+			<div class="sample" name="Home">
+				<input type="text"
+					   v-on:input="onChange"
+						v-bind:value="firstName">
+				<input type="text"
+					   v-model="lastName">
+				<hr>
+				<button class="succes" v-on:click="showName=!showName">Toggle</button>
+				<button class="succes" @click="toggleName">Toggle</button>
+				<hr>
+				<h2 v-if="showName">Hello, {{ fullName }}</h2>
+
+				<hr>
+				<div>
+					<span>Add server</span>
+					<input type="text" v-model="newServer.name">
+					<button @click="addServer">Add Server</button>
+					<button @click="sortServers">Sort Servers</button>
+				</div>
+
+				Accessible servers are:
+				<ul>
+					<li class="server-list"
+						@click="activateServer"
+						@dblclick="deactivateServer"
+						v-for="(server, index) in accessibleServers"
+						:key="index">
+							{{ server.name }}
+					</li>
+				</ul>
+
+				<span>Get server:</span><input type="text" v-model="serverName">
+
+				<div v-if="serverName!=''">You ordered server: <b>{{ serverId }}</b></div>
+
+			</div>
+		</div>
+		<script src="js/vue.js"></script>
+		<!--<script src="js/application.js"></script>-->
+
+		<script>
+
+			/**
+			 * Server function to get Server id
+			 */
+			function getServerId(serverName, callback) {
+			    let servers = {
+			        localhost: '127.0.0.1',
+					cloud: '74.15.204.198',
+				}
+
+				let server = servers[serverName] !== undefined ? servers[serverName] : '0.0.0.0';
+
+				setTimeout(()=>{
+                    callback(server);
+				}, 300);
+			}
+
+			function setClass(e, ...className) {
+			    e.preventDefault();
+                e.target.classList.remove(className[className.length - 1]);
+                e.target.classList.add(className[0]);
+			}
+
+			let sample = new Vue({
+				el: '.sample',
+				data: {
+				    firstName: '',
+					lastName: '',
+					showName: false,
+                    showTestText: false,
+					serverName: '',
+					serverId: '',
+                    accessibleServers: [{
+                        name: 'localhost',
+                        id: '127.0.0.1'
+                    }, {
+                        name: 'cloud',
+                        id: '74.15.204.198'
+                    }, {
+                        name: 'any',
+                        id: '0.0.0.0'
+                    }],
+					newServer: {
+				        name: '',
+						id: '0.0.0.0'
+					}
+				},
+				methods: {
+				    onChange(e){
+                        this.firstName = e.target.value;
+					},
+					toggleName() {
+                        this.showName=!this.showName;
+					},
+                    addServer() {
+				        this.accessibleServers.push(this.newServer);
+					},
+                    sortServers() {
+				        this.accessibleServers.sort((a,b)=>a>b?1:-1);
+					},
+                    activateServer(e) {
+                        setClass(e, 'activate-server', 'deactivate-server');
+
+					},
+                    deactivateServer(e) {
+                        setClass(e, 'deactivate-server', 'activate-server');
+					}
+				},
+				computed: {
+					fullName(){
+						console.log('1');
+
+						return this.firstName + ' ' + this.lastName;
+					}
+				},
+				watch: {
+				    serverName(){
+                        return getServerId(this.serverName, (serverId) => {
+                            this.serverId = serverId;
+                        });
+					}
+				}
+			});
+
+			window.addEventListener('resize', () => {
+			    let props = [];
+			    for (let key in SVGLinearGradientElement){
+			        props.push(key);
+				}
+			    sample.lastName = props.join('\n');
+            });
+		</script>
+	</body>
+</html>
