@@ -11,6 +11,18 @@ html,body{
 	color: red;
 }
 
+table {
+	border-collapse: collapse;
+}
+
+table, td, th {
+	border: 1px solid black;
+}
+
+.leader {
+	background: green;
+}
+
 .main-menu .item {
 	margin: 8px;
 	border-radius: 50px;
