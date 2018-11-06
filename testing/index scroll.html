@@ -9,25 +9,10 @@
 	<link href="css/application.css" rel="stylesheet">
 	<body>
 		<div class="main-menu">
-
 			<div class="sample" name="Home">
-
-				<new-component v-for="(val, index) in values"
-							   :key="index"
-							   :min="val.min"
-							   :max="val.max"
-							   @doublerange="onDoubleRange(index)">
-
-				</new-component>
-
-				<h3>{{clicks}}</h3>
-				<hr>
-				<!--click: arg; prevent: modifiers; onClick: value-->
-				<button v-ondelay:click.prevent.1000="onClick">Confirm</button>
-
 				<form v-if="!formSubmitted" @submit.prevent="formSubmitted=!formSubmitted">
 
-					<div class="scroll" v-ondelay:scroll.1000="onScroll" ref="rules">
+					<div class="scroll" @scroll="onScroll" ref="rules">
 						<p>Simple text example</p><p>Simple text example</p>
 						<p>Simple text example</p><p>Simple text example</p>
 						<p>Simple text example</p><p>Simple text example</p>
@@ -91,8 +76,7 @@
 		<!--<script src="js/start.form.js"></script>-->
 		<!--<script src="js/form 2.js"></script>-->
 		<!--<script src="js/validation form.js"></script>-->
-		<!--<script src="js/scroll.js"></script>-->
-		<script src="js/directive.js"></script>
+		<script src="js/scroll.js"></script>
 
 	</body>
 </html>

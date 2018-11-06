@@ -23,6 +23,21 @@ table, td, th {
 	background: green;
 }
 
+.error-validation {
+	margin: 8px;
+	border-radius: 10px;
+	background: tomato;
+	width: 10px;
+	height: 10px;
+}
+
+.scroll {
+    width: 300px;
+    height: 150px;
+    background: aquamarine;
+    overflow: auto;
+}
+
 .main-menu .item {
 	margin: 8px;
 	border-radius: 50px;
